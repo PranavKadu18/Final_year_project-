@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from config.settings import GROQ_API_KEY
-
+from utils.tts import speak
+from utils.stt import listen
 
 llm = ChatOpenAI(
     api_key=GROQ_API_KEY,
@@ -45,7 +46,11 @@ Guidelines:
 
     while True:
 
-        user_input = input("\nAstronaut: ")
+        # user_input = input("\nAstronaut: ")
+        user_input = listen()
+
+        if not user_input:
+            continue
 
         if user_input.lower() in ["bye", "exit", "quit"]:
             print("\nAI: Alright. I'm here whenever you need support. Stay safe up there.")
@@ -58,6 +63,7 @@ Guidelines:
         reply = response.content
 
         print("\nAI:", reply)
+        speak(reply)
 
         history.append({"role": "assistant", "content": reply})
 

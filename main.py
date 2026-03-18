@@ -1,4 +1,8 @@
 from graph.workflow import build_graph
+import logging
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 
 def main():
